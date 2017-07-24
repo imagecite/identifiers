@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="/links.css" />
+</head>
+
+<body>
+
+<div id="head">
+<a href="/">Identifier links</a>
+<form action="/search" method="GET">
+Scheme: <input type="text" name="scheme" />
+Identifier: <input type="text" name="ident" />
+<input type="submit" />
+</form>
+
+</div>
+
+<div id="body">
+{% block body %}{% endblock %}
+</div>
+
+</body>
+
+</html>

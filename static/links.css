@@ -1,0 +1,13 @@
+div#head a {
+    float: left;
+}
+
+div#head form {
+    float: right;
+}
+
+div#body {
+    clear: both;
+}
+
+/* eof */

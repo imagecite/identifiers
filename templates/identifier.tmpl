@@ -1,0 +1,21 @@
+{% extends "base.tmpl" %}
+
+{% block title %}{{ identifier.type }}:{{ identifier.ident }}{% endblock %}
+
+{% block body %}
+
+<p>
+{{ identifier.type }}:{{ identifier.ident }}
+</p>
+
+{% if identifier.type == 'doi' %}
+    <p><a href="http://dx.doi.org/{{ identifier.ident }}">DOI link</a></p>
+{% endif %}
+
+<ul>
+{% for li in links %}
+    <li>{{ li|identifier_link }} ({{ ', '.join(links[li]) }})</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
