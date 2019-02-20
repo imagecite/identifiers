@@ -1,6 +1,7 @@
 import dbm
 import fcntl
 import json
+import six
 
 db_fname_base = 'id'
 
@@ -54,9 +55,9 @@ class _DB:
 class Identifier:
 
     def __init__(self, type, ident):
-        if not isinstance(type, str):
+        if not isinstance(type, six.string_types):
             raise TypeError('type must be a string')
-        if not isinstance(ident, str):
+        if not isinstance(ident, six.string_types):
             raise TypeError('ident must be a string')
         self.type = type.lower()
         self.ident = ident
@@ -65,7 +66,7 @@ class Identifier:
 
     @classmethod
     def from_key(cls, key):
-        if not isinstance(key, str):
+        if not isinstance(key, six.string_types):
             raise TypeError('key must be a string')
         parts = key.split(':', 1)
         if len(parts) == 1:
@@ -88,7 +89,7 @@ class Identifier:
 def link(i1, i2, asserter):
     if not isinstance(i1, Identifier) or not isinstance(i2, Identifier):
         raise TypeError('identifiers must be Identifier instances')
-    if not isinstance(asserter, str):
+    if not isinstance(asserter, six.string_types):
         raise TypeError('asserter must be a string')
     if i1 == i2:
         raise ValueError('identifiers are the same')
@@ -111,7 +112,7 @@ def _link(db, i1, i2, asserter):
 def unlink(i1, i2, asserter):
     if not isinstance(i1, Identifier) or not isinstance(i2, Identifier):
         raise TypeError('identifiers must be Identifier instances')
-    if not isinstance(asserter, str):
+    if not isinstance(asserter, six.string_types):
         raise TypeError('asserter must be a string')
     if i1 == i2:
         raise ValueError('identifiers are the same')
