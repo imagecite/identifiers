@@ -1,5 +1,5 @@
 test : 
-	python -m unittest -vb tests
+	python3 -m unittest -vb tests
 
 clean : 
 	rm -f *.pyc */*.pyc

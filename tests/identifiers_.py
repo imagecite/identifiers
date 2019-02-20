@@ -124,10 +124,10 @@ class TestLinks(BaseTestLinks):
 
     def test_link(self):
         links = identifiers.get_links(self.i1)
-        self.assertEquals(links.keys(), [self.i2])
+        self.assertEquals(list(links.keys()), [self.i2])
         self.assertEquals(links[self.i2], {'ch'})
         links = identifiers.get_links(self.i2)
-        self.assertEquals(links.keys(), [self.i1])
+        self.assertEquals(list(links.keys()), [self.i1])
         self.assertEquals(links[self.i1], {'ch'})
         return
 

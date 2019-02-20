@@ -28,19 +28,19 @@ class _DB:
         return False
 
     def __getitem__(self, key):
-        return json.loads(self.db[key])
+        return json.loads(self.db[key.encode('utf-8')].decode('utf-8'))
 
     def __setitem__(self, key, value):
-        self.db[key] = json.dumps(value)
+        self.db[key.encode('utf-8')] = json.dumps(value).encode('utf-8')
         return
 
     def __delitem__(self, key):
-        del self.db[key]
+        del self.db[key.encode('utf-8')]
         return
 
     def __iter__(self):
         for key in self.db.keys():
-            yield key
+            yield key.decode('utf-8')
         return
 
     def close(self):
@@ -49,14 +49,14 @@ class _DB:
         return
 
     def keys(self):
-        return self.db.keys()
+        return list(self)
 
 class Identifier:
 
     def __init__(self, type, ident):
-        if not isinstance(type, basestring):
+        if not isinstance(type, str):
             raise TypeError('type must be a string')
-        if not isinstance(ident, basestring):
+        if not isinstance(ident, str):
             raise TypeError('ident must be a string')
         self.type = type.lower()
         self.ident = ident
@@ -65,7 +65,7 @@ class Identifier:
 
     @classmethod
     def from_key(cls, key):
-        if not isinstance(key, basestring):
+        if not isinstance(key, str):
             raise TypeError('key must be a string')
         parts = key.split(':', 1)
         if len(parts) == 1:
@@ -88,7 +88,7 @@ class Identifier:
 def link(i1, i2, asserter):
     if not isinstance(i1, Identifier) or not isinstance(i2, Identifier):
         raise TypeError('identifiers must be Identifier instances')
-    if not isinstance(asserter, basestring):
+    if not isinstance(asserter, str):
         raise TypeError('asserter must be a string')
     if i1 == i2:
         raise ValueError('identifiers are the same')
@@ -111,7 +111,7 @@ def _link(db, i1, i2, asserter):
 def unlink(i1, i2, asserter):
     if not isinstance(i1, Identifier) or not isinstance(i2, Identifier):
         raise TypeError('identifiers must be Identifier instances')
-    if not isinstance(asserter, basestring):
+    if not isinstance(asserter, str):
         raise TypeError('asserter must be a string')
     if i1 == i2:
         raise ValueError('identifiers are the same')
@@ -147,7 +147,7 @@ def get_links(i):
         except KeyError:
             d0 = {}
     d = {}
-    for (key, asserters) in d0.iteritems():
+    for (key, asserters) in d0.items():
         d[Identifier.from_key(key)] = set(asserters)
     return d
 

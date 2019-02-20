@@ -74,7 +74,7 @@ class BaseTestShared(BaseTestWithEmptyDB):
         if self.pid == 0:
             os.close(r_fo)
             db = identifiers._DB()
-            os.write(w_fo, 'ok')
+            os.write(w_fo, b'ok')
             select.select([], [], [], 10)
             os.close(w_fo)
             os._exit()
